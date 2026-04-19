@@ -6,12 +6,14 @@
 </head>
 <body>
 <h2>카테고리 등록</h2>
-
+<!-- categoryForm.html : th:object + th:field + th:errors 패턴 -->
 <form th:action="@{/categories/create}" th:object="${categoryForm}" method="post">
     <div>
         <label>카테고리 이름:</label>
+        <!--th:field가 name, id, value를 자동 설정 -->
         <input type="text" th:field="*{name}" placeholder="카테고리 이름"/>
 
+        <!--th:errors: BindingResult 오류(중복/공백) 메시지 자동 표시 -->
         <span th:errors="*{name}" style="color:red"></span>
     </div>
 
@@ -22,7 +24,10 @@
 
 <hr>
 <footer>
-    <p th:text="${'실습 수행: ' + #temporals.format(#temporals.createNow(), 'yyyy-MM-dd HH:mm:ss') + ' | 학번: 2371336 | 성명: 김선우'}"></p>
+    <p>
+        실습 수행 일시: <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+        | 학번: 2371336 | 성명: 김선우
+    </p>
 </footer>
 </body>
 </html>
