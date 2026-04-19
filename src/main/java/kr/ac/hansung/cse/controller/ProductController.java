@@ -49,12 +49,29 @@ public class ProductController {
     // ─────────────────────────────────────────────────────────────────
     // GET /products - 상품 목록 조회
     // ─────────────────────────────────────────────────────────────────
-
+    // 기존 listProducts() 메서드에 @RequestParam 두 개를 추가
     @GetMapping
-    public String listProducts(Model model) {
-        List<Product> products = productService.getAllProducts();
+    public String listProducts(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) Long categoryId,
+            Model model) {
+
+        List<Product> products;
+
+        if (keyword != null && !keyword.isBlank()) {
+            products = productService.searchByName(keyword);
+        } else if (categoryId != null) {
+            products = productService.searchByCategory(categoryId);
+        } else {
+            products = productService.getAllProducts();
+        }
+
         model.addAttribute("products", products);
-        model.addAttribute("categories", categoryService.getAllCategories());
+        // 카테고리 드롭다운 목록 + 현재 검색 조건 유지
+        model.addAttribute("categories", categoryService.getAllCategories()); // 필터 목록용
+        model.addAttribute("keyword", keyword); // 검색어 유지용
+        model.addAttribute("categoryId", categoryId); // 선택 카테고리 유지용
+
         return "productList";
     }
 
