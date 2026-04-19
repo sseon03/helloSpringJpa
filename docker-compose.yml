@@ -72,6 +72,8 @@ services:
   # Spring 7.x는 Servlet 6.1+ 를 요구하므로 Tomcat 11.x 사용 필수
   # (Tomcat 10.x는 Servlet 6.0 → Spring 7과 호환 불가)
   tomcat:
+    extra_hosts:
+      - "localhost:host-gateway"
     image: tomcat:11.0-jdk21
     container_name: spring-mvc-tomcat
 

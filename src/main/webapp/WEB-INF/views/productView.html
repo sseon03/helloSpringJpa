@@ -102,5 +102,12 @@
         </form>
     </div>
 
+    <hr>
+    <footer>
+        <p>
+            실습 수행 일시: <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+            | 학번: 2371336 | 성명: 김선우
+        </p>
+    </footer>
 </body>
 </html>
